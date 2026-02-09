@@ -1,0 +1,391 @@
+clear 
+clc
+
+%% Aorta
+noAOval = [57,58,59,28,29,30,31,32,36,37,38,39,40,41,44,46];
+
+% Read shape_modes from PCA for Imbio 47
+AOpcaSM = readmatrix('SMpca_Imbio47.txt');
+
+% Read shape_modes from PLS for Imbio 47
+AOplsSM = readmatrix('SMpls_Imbio47.txt');
+
+for i = 1:3
+
+    no = noAOval(i);
+
+    id = {['AO__Imbio',num2str(no),'__Momenta.txt']};
+    str = strjoin(id);
+
+    %% Importing Data
+    % Read momenta vectors from text file
+    fileID = fopen(str,'r');
+    formatspec = '%f';
+    A = fscanf(fileID,formatspec);
+
+    subjects = A(1); % Number of subject shapes used in deformetrica model
+    controlPoints = A(2); % Number of control points used in deformetrica model
+    dimensions = A(3); % Shape dimension (i.e. 2D or 3D)
+
+    % Initialise and populate a 2D momenta vector
+    AOmomenta2D = zeros(controlPoints*dimensions,subjects);
+
+    for j = 1:subjects
+        offset = (j-1)*controlPoints*3;
+        AOmomenta2D(1:controlPoints*3,j) = A(4+offset:3+controlPoints*3+offset);
+    end
+
+    aoMomenta2D = AOmomenta2D';
+
+    AOpcaSMs(i,:) = aoMomenta2D * AOpcaSM;
+    AOplsSMs(i,:) = aoMomenta2D * AOplsSM;
+
+end
+
+for i = 4:16
+
+    no = noAOval(i);
+
+    id = {['AO__S',num2str(no),'__Momenta.txt']};
+    str = strjoin(id);
+
+    %% Importing Data
+    % Read momenta vectors from text file
+    fileID = fopen(str,'r');
+    formatspec = '%f';
+    A = fscanf(fileID,formatspec);
+
+    subjects = A(1); % Number of subject shapes used in deformetrica model
+    controlPoints = A(2); % Number of control points used in deformetrica model
+    dimensions = A(3); % Shape dimension (i.e. 2D or 3D)
+
+    % Initialise and populate a 2D momenta vector
+    AOmomenta2D = zeros(controlPoints*dimensions,subjects);
+
+    for j = 1:subjects
+        offset = (j-1)*controlPoints*3;
+        AOmomenta2D(1:controlPoints*3,j) = A(4+offset:3+controlPoints*3+offset);
+    end
+
+    aoMomenta2D = AOmomenta2D';
+
+    AOpcaSMs(i,:) = aoMomenta2D * AOpcaSM;
+    AOplsSMs(i,:) = aoMomenta2D * AOplsSM;
+
+end
+
+%% Pulmonary Artery
+noPAval = [57,58,59,27,28,29,31,37,38,39,40,41,44,46];
+
+% Read shape_modes from PCA for S08
+PApcaSM = readmatrix('SMpca_S08.txt');
+
+% Read shape_modes from PLS for S08
+PAplsSM = readmatrix('SMpls_S08.txt');
+
+for i = 1:3
+
+    no = noPAval(i);
+
+    id = {['PA__Imbio',num2str(no),'__Momenta.txt']};
+    str = strjoin(id);
+
+    %% Importing Data
+    % Read momenta vectors from text file
+    fileID = fopen(str,'r');
+    formatspec = '%f';
+    A = fscanf(fileID,formatspec);
+
+    subjects = A(1); % Number of subject shapes used in deformetrica model
+    controlPoints = A(2); % Number of control points used in deformetrica model
+    dimensions = A(3); % Shape dimension (i.e. 2D or 3D)
+
+    % Initialise and populate a 2D momenta vector
+    PAmomenta2D = zeros(controlPoints*dimensions,subjects);
+
+    for j = 1:subjects
+        offset = (j-1)*controlPoints*3;
+        PAmomenta2D(1:controlPoints*3,j) = A(4+offset:3+controlPoints*3+offset);
+    end
+
+    paMomenta2D = PAmomenta2D';
+
+    PApcaSMs(i,:) = paMomenta2D * PApcaSM;
+    PAplsSMs(i,:) = paMomenta2D * PAplsSM;
+
+end
+
+for i = 4:14
+
+    no = noPAval(i);
+
+    id = {['PA__S',num2str(no),'__Momenta.txt']};
+    str = strjoin(id);
+
+    %% Importing Data
+    % Read momenta vectors from text file
+    fileID = fopen(str,'r');
+    formatspec = '%f';
+    A = fscanf(fileID,formatspec);
+
+    subjects = A(1); % Number of subject shapes used in deformetrica model
+    controlPoints = A(2); % Number of control points used in deformetrica model
+    dimensions = A(3); % Shape dimension (i.e. 2D or 3D)
+
+    % Initialise and populate a 2D momenta vector
+    PAmomenta2D = zeros(controlPoints*dimensions,subjects);
+
+    for j = 1:subjects
+        offset = (j-1)*controlPoints*3;
+        PAmomenta2D(1:controlPoints*3,j) = A(4+offset:3+controlPoints*3+offset);
+    end
+
+    paMomenta2D = PAmomenta2D';
+
+    PApcaSMs(i,:) = paMomenta2D * PApcaSM;
+    PAplsSMs(i,:) = paMomenta2D * PAplsSM;
+
+end
+
+% Import Pressure Data
+fileID2 = fopen('PAval.txt','r');
+formatspec2 = '%f';
+B = fscanf(fileID2,formatspec2); % numerical vector of mPaP data
+PAmPAP = B;
+
+fileID2 = fopen('AOval.txt','r');
+formatspec2 = '%f';
+C = fscanf(fileID2,formatspec2); % numerical vector of mPaP data
+AOmPAP = C;
+
+% Import PH Data
+fileID3 = fopen('PAvalPH.txt','r');
+formatspec3 = '%f';
+D = fscanf(fileID3,formatspec3); % numerical vector of mPaP data
+PAph = D;
+
+fileID3 = fopen('AOvalPH.txt','r');
+formatspec3 = '%f';
+E = fscanf(fileID3,formatspec3); % numerical vector of mPaP data
+AOph = E;
+
+PAsubject = noPAval';
+AOsubject = noAOval';
+
+% Put data into table
+PAt = table(PAsubject,PAmPAP,PAph);
+AOt = table(AOsubject,AOmPAP,AOph);
+
+%% Index for success rates
+x = {'Patients Successfully Classified' 'Patients Unsuccessfully Classified'};
+% PA PCA Shape Mode 1
+SM = 1;
+SMcutoff = 1060;
+c = 0;
+n = 1;
+[SucPrct(n,:),TP(n,:),TN(n,:),FP(n,:),FN(n,:),spec(n,:),sens(n,:)] = indVal(c,SMcutoff,PAt,PApcaSMs,SM);
+
+figure(1)
+bar1 = [(TP(n,:)+TN(n,:)) TP(n,:) TN(n,:); (FN(n,:)+FP(n,:)) FN(n,:) FP(n,:)];
+b1 = bar(bar1,'FaceColor','flat');
+b1(1).FaceColor = [0.4940 0.1840 0.5560];
+b1(2).FaceColor = [0.6350 0.0780 0.1840];
+b1(3).FaceColor = [0 0.4470 0.7410];
+box on
+grid minor
+xticklabels(x)
+ylabel("No.",'interpreter','latex')
+ylim([0 12])
+title("Validation Results of PCA Shape Mode 6",'interpreter','latex')
+subtitle("Main Pulmonary Artery",'interpreter','latex')
+legend("Healthy and Diagnosed Patients","Patients with Pulmonary Hypertension","Healthy Patients",'interpreter','latex','lo')
+set(gca,'TickLabelInterpreter','latex')
+set(gcf,'Position',[600 400 800 400])
+str = {strjoin(["Successful Classification Rate: ",num2str(SucPrct(n,:)),"\%"])};
+annotation('textbox',[0.68 0.6 0.1 0.1],'Interpreter','latex','String',str,'BackgroundColor','w','FitBoxToText','on','HorizontalAlignment','center')
+
+xtips1 = b1(1).XEndPoints;
+ytips1 = b1(1).YEndPoints;
+labels1 = string(b1(1).YData);
+text(xtips1,ytips1,labels1,'HorizontalAlignment','center','VerticalAlignment','bottom','Interpreter','latex')
+
+xtips2 = b1(2).XEndPoints;
+ytips2 = b1(2).YEndPoints;
+labels2 = string(b1(2).YData);
+text(xtips2,ytips2,labels2,'HorizontalAlignment','center','VerticalAlignment','bottom','Interpreter','latex')
+
+xtips3 = b1(3).XEndPoints;
+ytips3 = b1(3).YEndPoints;
+labels3 = string(b1(3).YData);
+text(xtips3,ytips3,labels3,'HorizontalAlignment','center','VerticalAlignment','bottom','Interpreter','latex')
+
+% PA PCA Shape Mode 6
+SM = 6;
+SMcutoff = 250;
+c = 0;
+n = n + 1;
+[SucPrct(n,:),TP(n,:),TN(n,:),FP(n,:),FN(n,:),spec(n,:),sens(n,:)] = indVal(c,SMcutoff,PAt,PApcaSMs,SM);
+
+figure(2)
+bar2 = [(TP(n,:)+TN(n,:)) TP(n,:) TN(n,:); (FN(n,:)+FP(n,:)) FN(n,:) FP(n,:)];
+b2 = bar(bar2,'FaceColor','flat');
+b2(1).FaceColor = [0.4940 0.1840 0.5560];
+b2(2).FaceColor = [0.6350 0.0780 0.1840];
+b2(3).FaceColor = [0 0.4470 0.7410];
+box on
+grid minor
+xticklabels(x)
+ylabel("No.",'interpreter','latex')
+ylim([0 12])
+title("Validation Results of PCA Shape Mode 6",'interpreter','latex')
+subtitle("Main Pulmonary Artery",'interpreter','latex')
+legend("Healthy and Diagnosed Patients","Patients with Pulmonary Hypertension","Healthy Patients",'interpreter','latex')
+set(gca,'TickLabelInterpreter','latex')
+set(gcf,'Position',[600 400 800 400])
+str = {strjoin(["Successful Classification Rate: ",num2str(SucPrct(n,:)),"\%"])};
+annotation('textbox',[0.68 0.6 0.1 0.1],'Interpreter','latex','String',str,'BackgroundColor','w','FitBoxToText','on','HorizontalAlignment','center')
+
+xtips1 = b2(1).XEndPoints;
+ytips1 = b2(1).YEndPoints;
+labels1 = string(b2(1).YData);
+text(xtips1,ytips1,labels1,'HorizontalAlignment','center','VerticalAlignment','bottom','Interpreter','latex')
+
+xtips2 = b2(2).XEndPoints;
+ytips2 = b2(2).YEndPoints;
+labels2 = string(b2(2).YData);
+text(xtips2,ytips2,labels2,'HorizontalAlignment','center','VerticalAlignment','bottom','Interpreter','latex')
+
+xtips3 = b2(3).XEndPoints;
+ytips3 = b2(3).YEndPoints;
+labels3 = string(b2(3).YData);
+text(xtips3,ytips3,labels3,'HorizontalAlignment','center','VerticalAlignment','bottom','Interpreter','latex')
+
+% PA PLS Good Index Shape Mode 1
+SM = 1;
+SMcutoff = -1000;
+c = 1;
+n = n + 1;
+[SucPrct(n,:),TP(n,:),TN(n,:),FP(n,:),FN(n,:),spec(n,:),sens(n,:)] = indVal(c,SMcutoff,PAt,PAplsSMs,SM);
+
+figure(3)
+bar3 = [(TP(n,:)+TN(n,:)) TP(n,:) TN(n,:); (FN(n,:)+FP(n,:)) FN(n,:) FP(n,:)];
+b3 = bar(bar3,'FaceColor','flat');
+b3(1).FaceColor = [0.4940 0.1840 0.5560];
+b3(2).FaceColor = [0.6350 0.0780 0.1840];
+b3(3).FaceColor = [0 0.4470 0.7410];
+box on
+grid minor
+xticklabels(x)
+ylabel("No.",'interpreter','latex')
+ylim([0 12])
+title("Validation Results of PLS Shape Mode 1",'interpreter','latex')
+subtitle("Main Pulmonary Artery",'interpreter','latex')
+legend("Healthy and Diagnosed Patients","Patients with Pulmonary Hypertension","Healthy Patients",'interpreter','latex')
+set(gca,'TickLabelInterpreter','latex')
+set(gcf,'Position',[600 400 800 400])
+str = {strjoin(["Successful Classification Rate: ",num2str(SucPrct(n,:)),"\%"])};
+annotation('textbox',[0.68 0.6 0.1 0.1],'Interpreter','latex','String',str,'BackgroundColor','w','FitBoxToText','on','HorizontalAlignment','center')
+
+xtips1 = b3(1).XEndPoints;
+ytips1 = b3(1).YEndPoints;
+labels1 = string(b3(1).YData);
+text(xtips1,ytips1,labels1,'HorizontalAlignment','center','VerticalAlignment','bottom','Interpreter','latex')
+
+xtips2 = b3(2).XEndPoints;
+ytips2 = b3(2).YEndPoints;
+labels2 = string(b3(2).YData);
+text(xtips2,ytips2,labels2,'HorizontalAlignment','center','VerticalAlignment','bottom','Interpreter','latex')
+
+xtips3 = b3(3).XEndPoints;
+ytips3 = b3(3).YEndPoints;
+labels3 = string(b3(3).YData);
+text(xtips3,ytips3,labels3,'HorizontalAlignment','center','VerticalAlignment','bottom','Interpreter','latex')
+
+% AO PCA Shape Mode 20
+SM = 20;
+SMcutoff = 10;
+c = 0;
+n = n + 1;
+[SucPrct(n,:),TP(n,:),TN(n,:),FP(n,:),FN(n,:),spec(n,:),sens(n,:)] = indVal(c,SMcutoff,AOt,AOpcaSMs,SM);
+
+figure(4)
+bar4 = [(TP(n,:)+TN(n,:)) TP(n,:) TN(n,:); (FN(n,:)+FP(n,:)) FN(n,:) FP(n,:)];
+b4 = bar(bar4,'FaceColor','flat');
+b4(1).FaceColor = [0.4940 0.1840 0.5560];
+b4(2).FaceColor = [0.6350 0.0780 0.1840];
+b4(3).FaceColor = [0 0.4470 0.7410];
+box on
+grid minor
+xticklabels(x)
+ylabel("No.",'interpreter','latex')
+ylim([0 12])
+title("Validation Results of PCA Shape Mode 20",'interpreter','latex')
+subtitle("Aorta",'interpreter','latex')
+legend("Healthy and Diagnosed Patients","Patients with Pulmonary Hypertension","Healthy Patients",'interpreter','latex')
+set(gca,'TickLabelInterpreter','latex')
+set(gcf,'Position',[600 400 800 400])
+str = {strjoin(["Successful Classification Rate: ",num2str(SucPrct(n,:)),"\%"])};
+annotation('textbox',[0.68 0.6 0.1 0.1],'Interpreter','latex','String',str,'BackgroundColor','w','FitBoxToText','on','HorizontalAlignment','center')
+
+xtips1 = b4(1).XEndPoints;
+ytips1 = b4(1).YEndPoints;
+labels1 = string(b4(1).YData);
+text(xtips1,ytips1,labels1,'HorizontalAlignment','center','VerticalAlignment','bottom','Interpreter','latex')
+
+xtips2 = b4(2).XEndPoints;
+ytips2 = b4(2).YEndPoints;
+labels2 = string(b4(2).YData);
+text(xtips2,ytips2,labels2,'HorizontalAlignment','center','VerticalAlignment','bottom','Interpreter','latex')
+
+xtips3 = b4(3).XEndPoints;
+ytips3 = b4(3).YEndPoints;
+labels3 = string(b4(3).YData);
+text(xtips3,ytips3,labels3,'HorizontalAlignment','center','VerticalAlignment','bottom','Interpreter','latex')
+
+% AO PCA Shape Mode 22
+SM = 22;
+SMcutoff = -38;
+c = 1;
+n = n + 1;
+[SucPrct(n,:),TP(n,:),TN(n,:),FP(n,:),FN(n,:),spec(n,:),sens(n,:)] = indVal(c,SMcutoff,AOt,AOpcaSMs,SM);
+
+figure(5)
+bar5 = [(TP(n,:)+TN(n,:)) TP(n,:) TN(n,:); (FN(n,:)+FP(n,:)) FN(n,:) FP(n,:)];
+b5 = bar(bar5,'FaceColor','flat');
+b5(1).FaceColor = [0.4940 0.1840 0.5560];
+b5(2).FaceColor = [0.6350 0.0780 0.1840];
+b5(3).FaceColor = [0 0.4470 0.7410];
+box on
+grid minor
+xticklabels(x)
+ylabel("No.",'interpreter','latex')
+ylim([0 12])
+title("Validation Results of PCA Shape Mode 22",'interpreter','latex')
+subtitle("Aorta",'interpreter','latex')
+legend("Healthy and Diagnosed Patients","Patients with Pulmonary Hypertension","Healthy Patients",'interpreter','latex')
+set(gca,'TickLabelInterpreter','latex')
+set(gcf,'Position',[600 400 800 400])
+str = {strjoin(["Successful Classification Rate: ",num2str(SucPrct(n,:)),"\%"])};
+annotation('textbox',[0.68 0.6 0.1 0.1],'Interpreter','latex','String',str,'BackgroundColor','w','FitBoxToText','on','HorizontalAlignment','center')
+
+xtips1 = b5(1).XEndPoints;
+ytips1 = b5(1).YEndPoints;
+labels1 = string(b5(1).YData);
+text(xtips1,ytips1,labels1,'HorizontalAlignment','center','VerticalAlignment','bottom','Interpreter','latex')
+
+xtips2 = b5(2).XEndPoints;
+ytips2 = b5(2).YEndPoints;
+labels2 = string(b5(2).YData);
+text(xtips2,ytips2,labels2,'HorizontalAlignment','center','VerticalAlignment','bottom','Interpreter','latex')
+
+xtips3 = b5(3).XEndPoints;
+ytips3 = b5(3).YEndPoints;
+labels3 = string(b5(3).YData);
+text(xtips3,ytips3,labels3,'HorizontalAlignment','center','VerticalAlignment','bottom','Interpreter','latex')
+
+% Specificity from 1-specificity
+spec = 1- spec;
+
+% Put into a tablea and display
+ValT = table(SucPrct,TP,TN,FN,FP,sens,spec);
+disp(ValT)

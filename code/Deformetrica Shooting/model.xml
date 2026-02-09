@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<model>
+    <model-type>Shooting</model-type>
+    <dimension>3</dimension>
+    <template>
+        <object id="PA">
+            <deformable-object-type>SurfaceMesh</deformable-object-type>
+            <filename>data/PA.vtk</filename>
+        </object>
+    </template>
+
+    <initial-control-points>data/ControlPointsPA.txt</initial-control-points>
+    <initial-momenta>data/PCA__Momenta__mode__1__nSD__2.txt</initial-momenta>
+
+    <deformation-parameters>
+        <kernel-width>3.0</kernel-width>
+        <kernel-type>torch</kernel-type>
+    </deformation-parameters>
+</model>
