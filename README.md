@@ -31,7 +31,7 @@ Pulmonary Hypertension is difficult to diagnose due to symptom overlap with othe
 
 ## Dataset
 The dataset used consists of 95 CT-derived 3D vascular geometries and associated clinical metadata for each subject.
-- .nii CT scan files (NIfTI format) store 3D medical imaging data
+- .nii CT scan files (NIfTI format) which store 3D medical imaging data
 - Relevant clinical metadata used:
   - Mean Pulmonary Arterial Pressure (mPAP)
   - Pulmonary Artery to Aorta Ratio (PA:A)
