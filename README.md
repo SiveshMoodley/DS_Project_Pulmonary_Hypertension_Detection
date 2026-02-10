@@ -2,7 +2,10 @@
 
 ## Project Overview
 - Developed a non-invasive machine learning framework to assess the feasibility of detecting Pulmonary Hypertension (PH) from CT imaging using Statistical Shape Modelling (SSM).
-- Implemented a full data preprocessing workflow to prepare 3D vascular geometries in .VTK ecosystem, including mesh smoothing, denoising, decimation and anatomical alignment using Laplacian and Taubin filters and Procrustes algorithm.
+- Implemented a full data preprocessing workflow to prepare 3D vascular geometries in .VTK ecosystem, including:
+  - mesh smoothing and denoising using Laplacian and Taubin filters
+  - decimation
+  - anatomical alignment using the Procrustes algorithm
 - Constructed diffeomorphic atlases from computed shape momenta of the pulmonary artery and aorta in python using deformetrica.
 - Engineered features (shape modes) from the atlases which correlate to clinical thresholds of elevated mean pulmonary arterial pressure (mPAP ≥ 25mmHg & ≥ 20mmHg) using Principal Component Analysis (PCA) and Partial Least Squares (PLS) Regression.
 - Evaluated diagnostic capability using AUCROC and Precision-Recall validators, achieving:
