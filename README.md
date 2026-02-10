@@ -38,12 +38,27 @@ The analyses described in the dissertation were conducted on real clinical data 
 
 
 ## Data Pre-Processing
-
+- Constructed dataset from segmented CT scans of the main pulmonary artery and aorta
+- Converted segmentations to 3D surface meshes and performed:
+  - Denoising and smoothing to remove artefacts, such the model represents true biological shape variation and improve computation efficiency
+  - Mesh decimation to standardise resolution and reduce computation complexity
+  - Anatomical alignment ensuring a common coordinate system so the model will not mistakenly interpret differences in position as actual anatomical variation
+- Generated a statistical atlas using diffeomorphic registration to compute a mean template, where each subjects deformations from the template were represented by momenta vectors
+- mPAP labels were matched to their corresponding mesh for PH classification
 
 ### Model Building
-
+- Applied Principal Component Analysis (PCA) to extract dominant unsupervised shape modes capturing geometric variance
+- Applied Partial Least Squares (PLS) to learn supervised shape modes maximally correlated with elevated mPAP
+- Quantified the amount of each shape mode per subject and analysed associations with PH
+- Models were analysed under two clinical definitions of PH to assess robustness
 
 ## Model Performance and Evaluations
+- Evaluated diagnostic ability using AUCROC and Precision-Recall curves
+- Key results for most discriminative modes:
+  - PLS Shape Mode 1: AUCROC = 0.734, Sensitivity = 0.837, Specificity = 0.346
+  - PCA Shape Mode 1: AUCROC = 0.718, Sensitivity = 0.744, Specificity = 0.615
+- Validated on unseen patient data, showing feasible generalisation but limited specificity for healthy cases
+- Demonstrated potential for a non-invasive pre-screening tool to reduce reliance on right-heart catheterisation and significantly cut diagnostic times, but requires model and data optimisation to improve performance
 
 ## Copyright and Permissions
 © 2024 Sivesh Saien George Moodley
