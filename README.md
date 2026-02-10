@@ -3,6 +3,10 @@
 ## Project Overview
 
 
+## Master's Dissertation
+**Full Dissertation Report (PDF):**
+[View Dissertation - PDF](dissertation/Masters-Dissertation-Pulmonary-Hypertension-Detection-SSGM.pdf)
+
 ## Code and Resources Used
 Python Version:
 
