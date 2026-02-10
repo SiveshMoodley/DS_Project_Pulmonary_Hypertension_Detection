@@ -27,7 +27,7 @@ Packages: deformetrica, pytorch, numpy, matplotlib, vtk
 Python Requirements: pip install -r requirements.txt
 
 ## Problem
-Pulmonary Hypertension is difficult to diagnose due to symptom overlap with other cardiopulmonary diseases and reliance on invasive right-heart catheterisation, leading to diagnostic delays of several years. This project investigates whether Statistical Shape Modelling of CT-derived pulmonary artery and aorta geometry can provide a reliable, non-invasive method to support earlier detection.
+Pulmonary Hypertension is difficult to diagnose due to symptom overlap with other cardiopulmonary diseases and reliance on invasive right-heart catheterisation, leading to diagnostic delays of several years. This project investigates whether Statistical Shape Modelling of CT-derived pulmonary artery and aorta geometry can provide a reliable, non-invasive method to support earlier detection, as SSM has been used in research for similar applications for other diseases.
 
 ## Dataset
 The dataset used consists of 95 CT-derived 3D vascular geometries and associated clinical metadata for each subject.
