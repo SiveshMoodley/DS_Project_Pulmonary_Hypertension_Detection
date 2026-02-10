@@ -8,8 +8,20 @@ Python Version:
 
 Packages:
 
-## Dataset
+## Problem
 
+
+## Dataset
+### Data Statement
+The dataset provided in this repository is a **synthetic sample created solely for demonstration purposes**.  
+It does not contain any real NHS or patient-derived information.
+
+- All values have been manually generated and do not correspond to any identifiable individual  
+- Study identifiers are fictional and unrelated to those used in the dissertation research  
+- Clinical measurements are illustrative only and should not be interpreted as real medical data  
+- The synthetic dataset is included only to allow readers to understand the structure of the code and workflow
+
+The analyses described in the dissertation were conducted on real clinical data under appropriate approvals; however, that data is not shared publicly in this repository under UK GDPR, Data Protection Act 2018 and NHS Guidance regulations.
 
 ## Methodology
 ### Data Pre-Processing
