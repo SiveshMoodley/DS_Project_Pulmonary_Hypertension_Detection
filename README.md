@@ -17,12 +17,12 @@
 [View Dissertation - PDF](dissertation/Masters-Dissertation-Pulmonary-Hypertension-Detection-SSGM.pdf)
 
 ## Code and Resources Used
-Python Version:
+Python Version: 3.8
 
-Packages:
+Packages: deformetrica, pytorch, numpy, matplotlib, vtk
 
 ## Problem
-
+Pulmonary Hypertension is difficult to diagnose due to symptom overlap with other cardiopulmonary diseases and reliance on invasive right-heart catheterisation, leading to diagnostic delays of several years. This project investigates whether Statistical Shape Modelling of CT-derived pulmonary artery and aorta geometry can provide a reliable, non-invasive method to support earlier detection.
 
 ## Dataset
 ### Data Statement
