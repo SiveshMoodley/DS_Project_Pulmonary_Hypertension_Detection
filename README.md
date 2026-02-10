@@ -21,10 +21,19 @@ Python Version: 3.8
 
 Packages: deformetrica, pytorch, numpy, matplotlib, vtk
 
+Python Requirements: pip install -r requirements.txt
+
 ## Problem
 Pulmonary Hypertension is difficult to diagnose due to symptom overlap with other cardiopulmonary diseases and reliance on invasive right-heart catheterisation, leading to diagnostic delays of several years. This project investigates whether Statistical Shape Modelling of CT-derived pulmonary artery and aorta geometry can provide a reliable, non-invasive method to support earlier detection.
 
 ## Dataset
+The dataset used consists of 95 CT-derived 3D vascular geometries and associated clinical metadata for each subject.
+- .nii CT scan files (NIfTI format) store 3D medical imaging data
+- Relevant clinical metadata used:
+  - Mean Pulmonary Arterial Pressure (mPAP)
+  - Pulmonary Artery to Aorta Ratio (PA:A)
+  - Pulmonary Vascular Resistance (PVR)
+
 ### Data Statement
 The dataset provided in this repository is a **synthetic sample created solely for demonstration purposes**.  
 It does not contain any real NHS or patient-derived information.
@@ -36,10 +45,9 @@ It does not contain any real NHS or patient-derived information.
 
 The analyses described in the dissertation were conducted on real clinical data under appropriate approvals; however, that data is not shared publicly in this repository under UK GDPR, Data Protection Act 2018 and NHS Guidance regulations.
 
-
 ## Data Pre-Processing
 - Constructed dataset from segmented CT scans of the main pulmonary artery and aorta
-- Converted segmentations to 3D surface meshes and performed:
+- Converted segmentations to .vtk 3D surface meshes and performed:
   - Denoising and smoothing to remove artefacts, such the model represents true biological shape variation and improve computation efficiency
   - Mesh decimation to standardise resolution and reduce computation complexity
   - Anatomical alignment ensuring a common coordinate system so the model will not mistakenly interpret differences in position as actual anatomical variation
